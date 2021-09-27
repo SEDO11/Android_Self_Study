@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/tv1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="선택을 시작하겠습니까?"
+        android:textSize="20dp"
+        android:textColor="@android:color/holo_purple"/>
+
+    <Switch
+        android:id="@+id/swStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="시작함" />
+
+    <TextView
+        android:id="@+id/tv2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="좋아하는 안드로이드는?"
+        android:textSize="20dp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:visibility="invisible"/>
+
+    <RadioGroup
+        android:id="@+id/rGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible">
+
+        <RadioButton
+            android:id="@+id/btnAnd1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="안드로이드 1" />
+
+        <RadioButton
+            android:id="@+id/btnAnd2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="안드로이드 2" />
+
+        <RadioButton
+            android:id="@+id/btnAnd3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="안드로이드 3" />
+    </RadioGroup>
+
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="match_parent"
+        android:layout_height="252dp"
+        android:visibility="invisible"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/btnExit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="종료"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/btnReturn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="처음으로"
+        android:visibility="invisible"/>
+</LinearLayout>
