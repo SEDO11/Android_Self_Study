@@ -35,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView cityView, weatherView, tempView, dateView;
     Button wBtn;
-    ImageView imgView;
-    EditText editCity;
+//    EditText editCity;
     static RequestQueue requestQueue;
 
     @Override
@@ -53,14 +52,15 @@ public class MainActivity extends AppCompatActivity {
         cityView = (TextView) findViewById(R.id.cityView);
         weatherView = (TextView) findViewById(R.id.weatherView);
         tempView = (TextView) findViewById(R.id.tempView);
-        editCity = (EditText) findViewById(R.id.editcity);
+//        editCity = (EditText) findViewById(R.id.editcity);
 
         wBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //editText를 통해 입력받은 도시 이름을 city에 저장하고 weather 메소드에 매개변수로 보냄
-                String city = editCity.getText().toString();
-                CurrentWeatherCall(city);
+//                String city = editCity.getText().toString();
+//                CurrentWeatherCall(city);
+                CurrentWeatherCall();
             }
         });
         if(requestQueue == null){
@@ -68,9 +68,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void CurrentWeatherCall(String city){
+    public void CurrentWeatherCall(){
         //날씨 받아오는 api, edit text를 통해 받은 city값을 api에 넣어줘서 해당 도시의 날씨 정보를 불러옴
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=cf33495ce789e9e32dc58938c1af0d91";
+//        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=cf33495ce789e9e32dc58938c1af0d91";
+        String url = "http://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=cf33495ce789e9e32dc58938c1af0d91";
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @SuppressLint("SetTextI18n")
