@@ -1,5 +1,6 @@
 package org.techtown.weather1;
 // 날씨 앱, 도시를 edit text를 통해 검색하면 해당 도시의 날씨 정보를 불러와 출력한다.
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,18 +35,20 @@ public class MainActivity extends AppCompatActivity {
 
     TextView cityView, weatherView, tempView, dateView;
     Button wBtn;
+    ImageView imgView;
     EditText editCity;
-    ImageButton imgBtn;
     static RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("날씨");
 
+        //툴바 제거
+        getSupportActionBar().hide();
+
+        //선언
         wBtn = (Button) findViewById(R.id.weatherBtn);
-        imgBtn = (ImageButton) findViewById(R.id.imgBtn);
         dateView = (TextView) findViewById(R.id.dateView);
         cityView = (TextView) findViewById(R.id.cityView);
         weatherView = (TextView) findViewById(R.id.weatherView);
@@ -53,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         wBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //editText를 통해 입력받은 도시 이름을 city에 저장하고 weather 메소드에 매개변수로 보냄
                 String city = editCity.getText().toString();
                 CurrentWeatherCall(city);
             }
@@ -95,9 +101,11 @@ public class MainActivity extends AppCompatActivity {
                     JSONArray weatherJson = jsonObject.getJSONArray("weather");
                     JSONObject weatherObj = weatherJson.getJSONObject(0);
                     String weather = weatherObj.getString("description");
+                    String icon = weatherObj.getString("icon");
+                    
                     //weather view에 날씨 출력
                     weatherView.setText(weather);
-
+                    
                     //기온 키값 받기
                     JSONObject tempK = new JSONObject(jsonObject.getString("main"));
 
@@ -120,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
                 return params;
             }
 
