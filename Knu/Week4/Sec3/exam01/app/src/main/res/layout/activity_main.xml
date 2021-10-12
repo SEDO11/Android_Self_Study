@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TableRow>
+        <EditText
+            android:id="@+id/edit1"
+            android:layout_span="5"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+    </TableRow>
+
+    <TableRow>
+        <EditText
+            android:id="@+id/edit2"
+            android:layout_span="5"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/btn0"
+            android:text="0"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/btn1"
+            android:text="1"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/btn2"
+            android:text="2"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/btn3"
+            android:text="3"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/btn4"
+            android:text="4"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/btn5"
+            android:text="5"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/btn6"
+            android:text="6"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/btn7"
+            android:text="7"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/btn8"
+            android:text="8"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:id="@+id/btn9"
+            android:text="9"
+            android:layout_weight="1"
+            android:layout_margin="10dp" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/add"
+            android:text="더하기"
+            android:layout_span="5"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/min"
+            android:text="빼기"
+            android:layout_span="5"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/mul"
+            android:text="곱하기"
+            android:layout_span="5"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+    </TableRow>
+
+    <TableRow>
+        <Button
+            android:id="@+id/div"
+            android:text="나누기"
+            android:layout_span="5"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+    </TableRow>
+
+    <TableRow>
+        <TextView
+            android:id="@+id/culView"
+            android:layout_weight="1"
+            android:text="연산: "
+            android:textSize="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+
+        <TextView
+            android:id="@+id/resultView"
+            android:layout_weight="1"
+            android:text="결과: "
+            android:textSize="30dp"
+            android:textColor="#FF0000"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp" />
+    </TableRow>
+
+</TableLayout>
