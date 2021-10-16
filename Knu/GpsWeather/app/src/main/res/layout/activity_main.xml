@@ -6,26 +6,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity"
-    android:background="@drawable/covid1">
+    android:background="@drawable/weather">
 
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="btnClick"
-        android:text="금일 확진자 확인" />
+        android:text="Button"
+        android:onClick="btnClick"/>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvH"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="확진자 수"
+            android:text="날씨정보"
+            android:textSize="20dp"
             android:textColor="@color/black"
-            android:textSize="20dp" />
+            android:id="@+id/tv1"/>
     </ScrollView>
-
 </LinearLayout>

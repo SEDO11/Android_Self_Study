@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.techtown.covidtest">
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    package="org.techtown.gpsweather">
+    <!-- 위치정보Manifest -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
-    <!--android:usesCleartextTraffic="true" 안드로이드 보안 강화로 인해
-            http 사이트를 이용할려면 허용을 해주어야 한다.-->
     <application
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
@@ -13,7 +12,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.CovidTest">
+        android:theme="@style/Theme.GpsWeather">
         <activity
             android:name=".MainActivity"
             android:exported="true">

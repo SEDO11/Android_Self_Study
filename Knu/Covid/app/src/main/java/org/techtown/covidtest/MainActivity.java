@@ -1,11 +1,12 @@
 package org.techtown.covidtest;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,37 +16,62 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView;
+    TextView tvH;
     String data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle("금일 코로나 확진자 확인");
 
-        textView = (TextView)findViewById(R.id.tvH);
-
+        tvH = (TextView)findViewById(R.id.tvH);
     }
 
-    public void btnClick(View v) {
-        switch( v.getId() ){
+    //금일 or 전일 연, 월, 일, 시간 정보 불러오기
+    public String time() {
+        //현재 시간 불러오기
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        //년-월-일
+        SimpleDateFormat simpleDateFormatDay = new SimpleDateFormat("yyyyMMdd");
+        //현재시간
+        SimpleDateFormat mFormat = new SimpleDateFormat("hhmm");
+        String getDay;
+        if (!(mFormat.equals("1000"))) {
+            Date dDate = new Date();
+            dDate = new Date(dDate.getTime()+(1000*60*60*24*-1));
+            SimpleDateFormat yesterday = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
+            getDay = yesterday.format(dDate);
+        } else {
+            getDay = simpleDateFormatDay.format(date);
+        }
+        return getDay;
+    }
 
+    // 버튼을 클릭 했을 경우
+    public void btnClick(View v){
+        switch (v.getId()){
             case R.id.button:
-                // 쓰레드를 생성하여 돌리는 구간
                 new Thread(new Runnable() {
-
                     @Override
                     public void run() {
+                        String time = time();
+                        data=getXmlData(time);
 
-                        data= getData(); // 하단의 getData 메소드를 통해 데이터를 파싱
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                textView.setText(data);
+                                tvH.setText(data);
+                                if (!(Integer.parseInt(time) < 1000)) {
+                                    Toast.makeText(getApplicationContext(),"오전 10시가 넘지 않았으므로 \n전일 코로나 확진 정보를 갖고왔습니다.",Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(),"금일 코로나 확진 정보를 갖고왔습니다.",Toast.LENGTH_SHORT).show();
+                                }
                             }
                         });
                     }
@@ -54,65 +80,63 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    String getData(){
-        StringBuffer buffer = new StringBuffer();
-        String queryUrl="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson?serviceKey=FWh87%2FqaLEma7tme7KUMsUs6zp6rbczh1uHDI88B80cXFV29f1uSbPx5tCvgP3eH8jf1vxJ1i0vWZbPXUpGelQ%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200310&endCreateDt=20200315";
+    //코로나 확진자 데이터를 api에서 파싱해서 가져옴
+    String getXmlData(String getDay){ //연월일 데이터 가져옴
+        StringBuffer buffer=new StringBuffer();
+        String query="FWh87%2FqaLEma7tme7KUMsUs6zp6rbczh1uHDI88B80cXFV29f1uSbPx5tCvgP3eH8jf1vxJ1i0vWZbPXUpGelQ%3D%3D";
+        String queryUrl="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey="+ query +"&pageNo=1&numOfRows=10&startCreateDt="+ getDay + "&endCreateDt=" + getDay;
+        try{
+            URL url= new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
+            InputStream is= url.openStream(); //url위치로 입력스트림 연결
 
-        try {
-            URL url= new URL(queryUrl); // 문자열로 된 요청 url을 URL 객체로 생성.
-            InputStream is= url.openStream(); // url 위치로 인풋스트림 연결
-
-            XmlPullParserFactory factory= XmlPullParserFactory.newInstance();
+            XmlPullParserFactory factory= XmlPullParserFactory.newInstance();//xml파싱을 위한
             XmlPullParser xpp= factory.newPullParser();
+            xpp.setInput( new InputStreamReader(is, "UTF-8") ); //inputstream 으로부터 xml 입력받기
 
-            // inputstream 으로부터 xml 입력받기
-            xpp.setInput( new InputStreamReader(is, "UTF-8") );
             String tag;
+
             xpp.next();
             int eventType= xpp.getEventType();
-
             while( eventType != XmlPullParser.END_DOCUMENT ){
                 switch( eventType ){
                     case XmlPullParser.START_DOCUMENT:
-                        buffer.append("파싱 시작 단계 \n\n");
+                        buffer.append("파싱 시작...\n\n");
                         break;
 
                     case XmlPullParser.START_TAG:
-                        tag= xpp.getName(); // 태그 이름 얻어오기
-
-                        if(tag.equals("item")) ;
-                        else if(tag.equals("deathCnt")){
-                            buffer.append("테스트1 : ");
-                            xpp.next();
-                            // addr 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append(xpp.getText());
-                            buffer.append("\n"); // 줄바꿈 문자 추가
-                        }
-                        else if(tag.equals("decideCnt")){
-                            buffer.append("테스트2 : ");
-                            xpp.next();
-                            // addr 요소의 TEXT 읽어와서 문자열버퍼에 추가
-                            buffer.append(xpp.getText());
-                            buffer.append("\n"); // 줄바꿈 문자 추가
-                        }
+                            tag= xpp.getName();//테그 이름 얻어오기
+                            if(tag.equals("item")) ;// 첫번째 검색결과
+                            else if(tag.equals("gubun")){ //위치
+                                xpp.next();
+                                buffer.append(xpp.getText());//title 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                                buffer.append("\n"); //줄바꿈 문자 추가
+                            }
+                            else if(tag.equals("incDec")){
+                                buffer.append("금일 확진자 : ");
+                                xpp.next();
+                                buffer.append(xpp.getText());//category 요소의 TEXT 읽어와서 문자열버퍼에 추가
+                                buffer.append(" 명");
+                                buffer.append("\n");//줄바꿈 문자 추가
+                            }
                         break;
 
                     case XmlPullParser.TEXT:
                         break;
 
                     case XmlPullParser.END_TAG:
-                        tag= xpp.getName(); // 태그 이름 얻어오기
-                        if(tag.equals("item")) buffer.append("\n"); // 첫번째 검색결과종료 후 줄바꿈
+                        tag= xpp.getName(); //테그 이름 얻어오기
+
+                        if(tag.equals("item")) buffer.append("\n");// 첫번째 검색결과종료..줄바꿈
                         break;
                 }
                 eventType= xpp.next();
             }
 
-        } catch (Exception e) {
+        } catch (Exception e){
             e.printStackTrace();
         }
-        buffer.append("파싱 종료 단계 \n");
-        return buffer.toString(); // 파싱 다 종료 후 StringBuffer 문자열 객체 반환
-    }
 
+        return buffer.toString();//StringBuffer 문자열 객체 반환
+
+    }//getXmlData method....
 }

@@ -16,8 +16,6 @@ import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.runtime.Permission;
 
-import org.techtown.location.R;
-
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
