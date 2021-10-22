@@ -67,12 +67,10 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            //버튼을 누르면 위치 갱신
             if (location != null) {
               double latitude = location.getLatitude();
               double longitude = location.getLongitude();
-              String message = "최근 위치 -> Latitude : " + latitude + "\nLongitude:" + longitude;
-
-              textView.setText(message);
             }
 
             GPSListener gpsListener = new GPSListener();
@@ -92,11 +90,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     class GPSListener implements LocationListener {
+        //위치를 저장받고 계속 뜨는 곳
         public void onLocationChanged(Location location) {
             Double latitude = location.getLatitude();
             Double longitude = location.getLongitude();
 
-            String message = "내 위치 -> Lat : "+ latitude + "\nLon:"+ longitude;
+            String message = "내 위치  \nLat : "+ latitude + "\nLon:"+ longitude;
             textView.setText(message);
         }
 

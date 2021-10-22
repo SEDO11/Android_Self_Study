@@ -1,3 +1,4 @@
+//공공기관 api는 위도 경도를 받는 방식이 아니라서 부적절 함
 package org.techtown.gpsweather;
 
 import android.os.Bundle;
@@ -42,73 +43,73 @@ public class MainActivity extends AppCompatActivity {
 
         tv1 = (TextView)findViewById(R.id.tv1);
 
-//        AndPermission.with(this)
-//                .runtime()
-//                .permission(
-//                        Permission.ACCESS_FINE_LOCATION,
-//                        Permission.ACCESS_COARSE_LOCATION)
-//                .onGranted(new Action<List<String>>() {
-//                    @Override
-//                    public void onAction(List<String> permissions) {
-//                        showToast("허용된 권한 갯수 : " + permissions.size());
-//                    }
-//                })
-//                .onDenied(new Action<List<String>>() {
-//                    @Override
-//                    public void onAction(List<String> permissions) {
-//                        showToast("거부된 권한 갯수 : " + permissions.size());
-//                    }
-//                })
-//                .start();
+        AndPermission.with(this)
+                .runtime()
+                .permission(
+                        Permission.ACCESS_FINE_LOCATION,
+                        Permission.ACCESS_COARSE_LOCATION)
+                .onGranted(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+                        showToast("허용된 권한 갯수 : " + permissions.size());
+                    }
+                })
+                .onDenied(new Action<List<String>>() {
+                    @Override
+                    public void onAction(List<String> permissions) {
+                        showToast("거부된 권한 갯수 : " + permissions.size());
+                    }
+                })
+                .start();
 
     }
 
     public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
-//    위치정보를 가져오면서 이상이 발생된 듯 하다
-//    public String startLocationService() {
-//        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//
-//        String result = null;
-//
-//        try {
-//            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            if (location != null) {
-//                Double latitude = location.getLatitude();
-//                Double longitude = location.getLongitude();
-//                int lat = Integer.parseInt(String.valueOf(latitude));
-//                int lon = Integer.parseInt(String.valueOf(longitude));
-//                result = lat + " " + lon;
-//                return result;
-//            }
-//
-//            GPSListener gpsListener = new GPSListener();
-//            long minTime = 10000;
-//            float minDistance = 0;
-//
-//            manager.requestLocationUpdates(
-//                    LocationManager.GPS_PROVIDER,
-//                    minTime, minDistance, gpsListener);
-//
-//            Toast.makeText(getApplicationContext(), "내 위치확인 요청함",
-//                    Toast.LENGTH_SHORT).show();
-//
-//        } catch(SecurityException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-//
-//    static class GPSListener implements LocationListener {
-//        public void onLocationChanged(Location location) { }
-//
-//        public void onProviderDisabled(String provider) { }
-//
-//        public void onProviderEnabled(String provider) { }
-//
-//        public void onStatusChanged(String provider, int status, Bundle extras) { }
-//    }
+
+    public String startLocationService() {
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        String result = null;
+
+        try {
+            Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (location != null) {
+                Double latitude = location.getLatitude();
+                Double longitude = location.getLongitude();
+                int lat = Integer.parseInt(String.valueOf(latitude));
+                int lon = Integer.parseInt(String.valueOf(longitude));
+                result = lat + " " + lon;
+                return result;
+            }
+
+            GPSListener gpsListener = new GPSListener();
+            long minTime = 10000;
+            float minDistance = 0;
+
+            manager.requestLocationUpdates(
+                    LocationManager.GPS_PROVIDER,
+                    minTime, minDistance, gpsListener);
+
+            Toast.makeText(getApplicationContext(), "내 위치확인 요청함",
+                    Toast.LENGTH_SHORT).show();
+
+        } catch(SecurityException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    static class GPSListener implements LocationListener {
+        public void onLocationChanged(Location location) { }
+
+        public void onProviderDisabled(String provider) { }
+
+        public void onProviderEnabled(String provider) { }
+
+        public void onStatusChanged(String provider, int status, Bundle extras) { }
+    }
 
     //금일 or 전일 연, 월, 일, 시간 정보 불러오기
     public String time() {
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tv1.setText(data);
-                                    Toast.makeText(getApplicationContext(),"금일 코로나 확진 정보를 갖고왔습니다.",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(),"금일 코로나 확진 정보를 갖고왔습니다.",Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 //        String lat = gps.substring(0, gps.indexOf(" "));
 //        String lon = gps.substring(gps.indexOf(" ")+1);
         String query="FWh87%2FqaLEma7tme7KUMsUs6zp6rbczh1uHDI88B80cXFV29f1uSbPx5tCvgP3eH8jf1vxJ1i0vWZbPXUpGelQ%3D%3D";
-        String queryUrl="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey="+query+"&numOfRows=10&pageNo=1&base_date=20211016&base_time=0600&nx=55&ny=127";
+        String queryUrl="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey="+query+"&numOfRows=10&pageNo=1&base_date=20211021&base_time=0600&nx=60&ny=127";
         try{
             URL url= new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
             InputStream is= url.openStream(); //url위치로 입력스트림 연결
@@ -197,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case XmlPullParser.END_TAG:
-                        tag= xpp.getName(); //테그 이름 얻어오기
+                        tag= xpp.getName(); //태그 이름 얻어오기
                         buffer.append("dddd");
                         if(tag.equals("item")) buffer.append("\n");// 첫번째 검색결과종료..줄바꿈
                         break;

@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             if(location != null) {
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-                String message = "최근 위치 -> Latitude : " + latitude + "\nLongitude:" + longitude;
+                String message = "최근 위치 -> Latitude : " + latitude + "\nLongitude : " + longitude;
 
                 tvGPS.setText(message);
             }
@@ -94,10 +94,10 @@ public class MainActivity extends AppCompatActivity {
 
     class GPSListener implements LocationListener {
         public  void onLocationChanged(Location location) {
-            Double latitude = location.getLatitude();
-            Double longitude = location.getLongitude();
-            String message = "내 위치 -> Latitude : " + latitude + "\nLongitude:" + longitude;
-            tvGPS.setText(message);
+//            Double latitude = location.getLatitude();
+//            Double longitude = location.getLongitude();
+//            String message = "내 위치 -> Latitude : " + latitude + "\nLongitude:" + longitude;
+//            tvGPS.setText(message);
         }
 
         public void onProviderDisabled(String provider) {}
