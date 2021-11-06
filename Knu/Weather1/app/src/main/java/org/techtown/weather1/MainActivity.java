@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void CurrentWeatherCall(String city){
         //날씨 받아오는 api, edit text를 통해 받은 city값을 api에 넣어줘서 해당 도시의 날씨 정보를 불러옴
-        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=cf33495ce789e9e32dc58938c1af0d91";
+        String url = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=cf33495ce789e9e32dc58938c1af0d91&lang=kr";
 
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @SuppressLint("SetTextI18n")

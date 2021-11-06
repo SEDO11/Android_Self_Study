@@ -41,15 +41,9 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat simpleDateFormatDay = new SimpleDateFormat("yyyyMMdd");
         //현재시간
         SimpleDateFormat mFormat = new SimpleDateFormat("hhmm");
+
         String getDay;
-        if (!(mFormat.equals("1000"))) {
-            Date dDate = new Date();
-            dDate = new Date(dDate.getTime()+(1000*60*60*24*-1));
-            SimpleDateFormat yesterday = new SimpleDateFormat("yyyyMMdd", Locale.KOREA);
-            getDay = yesterday.format(dDate);
-        } else {
-            getDay = simpleDateFormatDay.format(date);
-        }
+        getDay = simpleDateFormatDay.format(date);
         return getDay;
     }
 
@@ -67,11 +61,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tvH.setText(data);
-                                if (!(Integer.parseInt(time) < 1000)) {
-                                    Toast.makeText(getApplicationContext(),"오전 10시가 넘지 않았으므로 \n전일 코로나 확진 정보를 갖고왔습니다.",Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(getApplicationContext(),"금일 코로나 확진 정보를 갖고왔습니다.",Toast.LENGTH_SHORT).show();
-                                }
+                                Toast.makeText(getApplicationContext(),"금일 코로나 확진 정보를 갖고왔습니다.",Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -83,11 +73,8 @@ public class MainActivity extends AppCompatActivity {
     //코로나 확진자 데이터를 api에서 파싱해서 가져옴
     String getXmlData(String getDay){ //연월일 데이터 가져옴
         StringBuffer buffer=new StringBuffer();
-//        String query="FWh87%2FqaLEma7tme7KUMsUs6zp6rbczh1uHDI88B80cXFV29f1uSbPx5tCvgP3eH8jf1vxJ1i0vWZbPXUpGelQ%3D%3D";
-//        String queryUrl="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey="+ query +"&pageNo=1&numOfRows=10&startCreateDt="+ getDay + "&endCreateDt=" + getDay;
-
         String query="FWh87%2FqaLEma7tme7KUMsUs6zp6rbczh1uHDI88B80cXFV29f1uSbPx5tCvgP3eH8jf1vxJ1i0vWZbPXUpGelQ%3D%3D";
-        String queryUrl="http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey="+query+"&numOfRows=10&pageNo=1&base_date=20211021&base_time=0600&nx=37.5&ny=126";
+        String queryUrl="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey="+ query +"&pageNo=1&numOfRows=10&startCreateDt="+ getDay + "&endCreateDt=" + getDay;
 
         try{
             URL url= new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
@@ -110,14 +97,12 @@ public class MainActivity extends AppCompatActivity {
                     case XmlPullParser.START_TAG:
                             tag= xpp.getName();//테그 이름 얻어오기
                             if(tag.equals("item")) ;// 첫번째 검색결과
-                            else if(tag.equals("category")){ //위치
-//                            else if(tag.equals("gubun")){ //위치
+                            else if(tag.equals("gubun")){ //위치
                                 xpp.next();
                                 buffer.append(xpp.getText());//title 요소의 TEXT 읽어와서 문자열버퍼에 추가
                                 buffer.append("\n"); //줄바꿈 문자 추가
                             }
-                            else if(tag.equals("obsrValue")){
-//                            else if(tag.equals("incDec")){
+                            else if(tag.equals("incDec")){
                                 buffer.append("금일 확진자 : ");
                                 xpp.next();
                                 buffer.append(xpp.getText());//category 요소의 TEXT 읽어와서 문자열버퍼에 추가
