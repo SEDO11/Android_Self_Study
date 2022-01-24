@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/sand">
 
     <EditText
         android:id="@+id/editLon"
@@ -11,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:hint="지역 입력"
-        android:textColor="@color/white" />
+        android:textColor="@color/black" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -21,10 +22,10 @@
         <TextView
             android:id="@+id/airView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:text="날씨 확인"
-            android:textColor="@color/white"
+            android:text="내용"
+            android:textColor="@color/black"
             android:textSize="20dp" />
     </ScrollView>
 
@@ -33,9 +34,9 @@
         android:onClick="btnClick"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="날씨 확인하기"
+        android:text="대기 확인하기"
         android:textColor="@color/white"
-        android:backgroundTint="#555555"
+        android:backgroundTint="#555500"
         android:textSize="18dp"/>
 
 </LinearLayout>

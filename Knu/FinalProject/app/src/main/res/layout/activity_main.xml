@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="환영합니다."
         android:textColor="#FFFFFF"
         android:textSize="20dp" />
 
@@ -20,7 +19,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
-        android:background="@drawable/img1"/>
+        android:background="@drawable/today_ic"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -48,7 +47,7 @@
             android:layout_marginTop="110dp"
             android:layout_marginEnd="50dp"
             android:backgroundTint="#000FFF"
-            android:text="대기\n오염"
+            android:text="황사\n정보"
             android:textSize="18dp"
             android:textColor="@color/white" />
 
@@ -62,8 +61,8 @@
             android:layout_marginEnd="50dp"
             android:backgroundTint="#000FFF"
             android:text="금일\n코로나"
-            android:textSize="18dp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="18dp" />
 
         <Button
             android:id="@+id/weekWeatherBtn"
@@ -74,9 +73,9 @@
             android:layout_marginStart="50dp"
             android:layout_marginTop="20dp"
             android:backgroundTint="#000FFF"
-            android:text="주간\n예보"
-            android:textSize="18dp"
-            android:textColor="@color/white" />
+            android:text="중기\n예보"
+            android:textColor="@color/white"
+            android:textSize="18dp" />
 
     </RelativeLayout>
 </LinearLayout>

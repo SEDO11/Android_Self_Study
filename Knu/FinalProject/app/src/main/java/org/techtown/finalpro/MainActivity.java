@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setTitle("날씨");
+        setTitle("Weather");
 
         Button todayBtn = (Button) findViewById(R.id.todayWeatherBtn);
         todayBtn.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +38,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, air.class);
+                startActivity(intent);
+            }
+        });
+
+        Button weekBtn = (Button) findViewById(R.id.weekWeatherBtn);
+        weekBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, week.class);
                 startActivity(intent);
             }
         });

@@ -90,24 +90,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 CurrentWeatherCall();
-//                LocationManager  mLocMan; // 위치 관리자
-//                mLocMan = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-//
-//                if(!mLocMan.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-//                    showToast("GPS가 꺼져 있으니 On시켜 주시기 바랍니다 !!");
-//
-//                    // GPS 설정 화면으로 이동
-//                    Intent gpsOptionsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-//                    startActivity(gpsOptionsIntent);
-//                } else {
-//                    startLocationService();
-//                    CurrentWeatherCall();
-//                }
+                LocationManager  mLocMan; // 위치 관리자
+                mLocMan = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+
+                if(!mLocMan.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                    showToast("GPS가 꺼져 있으니 On시켜 주시기 바랍니다 !!");
+
+                    // GPS 설정 화면으로 이동
+                    Intent gpsOptionsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(gpsOptionsIntent);
+                } else {
+                    startLocationService();
+                    CurrentWeatherCall();
+                }
             }
         });
-//        if(requestQueue == null){
-//            requestQueue = Volley.newRequestQueue(getApplicationContext());
-//        }
+        if(requestQueue == null){
+            requestQueue = Volley.newRequestQueue(getApplicationContext());
+        }
     }
 
     //GPS 불러오기
@@ -150,27 +150,27 @@ public class MainActivity extends AppCompatActivity {
     //날씨 api
     public void CurrentWeatherCall(){
         //gps 좌표 받아와서 파싱
-//        int idx = result.indexOf(" ");
-//        String lat = result.substring(0, idx);
-//        String lon = result.substring(idx+1);
+        int idx = result.indexOf(" ");
+        String lat = result.substring(0, idx);
+        String lon = result.substring(idx+1);
         //gps 좌표 위경도 -> x y로 변환(공공기관 api는 x y값으로 좌표를 받기 때문)
-//        LatXLngY tmp = convertGRID_GPS(TO_GRID, Double.parseDouble(lat), Double.parseDouble(lon));
+        LatXLngY tmp = convertGRID_GPS(TO_GRID, Double.parseDouble(lat), Double.parseDouble(lon));
 
         //api 키값
         String apiKey = "cf33495ce789e9e32dc58938c1af0d91";
         //공공데이터 api 키값
         //String apiKey = "FWh87%2FqaLEma7tme7KUMsUs6zp6rbczh1uHDI88B80cXFV29f1uSbPx5tCvgP3eH8jf1vxJ1i0vWZbPXUpGelQ%3D%3D";
-//        tv.setText("현재 위치\n" + lat + " " + lon);
+        tv.setText("현재 위치\n" + lat + " " + lon);
 
         //api 호출 주소
-        String url = "http://api.openweathermap.org/data/2.5/weather?lat=55&lon=127&appid="+apiKey;
-//        String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey="+apiKey+"&dataType=JSON&numOfRows=10&pageNo=1&base_date=20211101&base_time=0600&nx=55&ny=127";
+//        String url = "http://api.openweathermap.org/data/2.5/weather?lat=55&lon=127&appid="+apiKey;
+        String url = "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey="+apiKey+"&dataType=JSON&numOfRows=10&pageNo=1&base_date=20211101&base_time=0600&nx=55&ny=127";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(String response) {
                 try {
-//                    tv.setText(lat + " " + lon);
+                    tv.setText(lat + " " + lon);
                     //실시간 날씨 확인
                     long now = System.currentTimeMillis();
                     Date date = new Date(now);

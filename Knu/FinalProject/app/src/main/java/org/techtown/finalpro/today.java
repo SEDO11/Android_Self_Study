@@ -41,7 +41,7 @@ public class today extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.today);
-        setTitle("현재 날씨 확인");
+        setTitle("현재 날씨");
 
         //선언
         wBtn = (Button) findViewById(R.id.weatherBtn);

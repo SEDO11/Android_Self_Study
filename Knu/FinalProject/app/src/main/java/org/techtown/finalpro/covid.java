@@ -20,15 +20,15 @@ import java.util.Locale;
 
 public class covid extends AppCompatActivity {
 
-    TextView tvH;
+    TextView covidView;
     String data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.covid);
-        setTitle("금일 코로나 확진자 확인");
-        tvH = (TextView)findViewById(R.id.tvH);
+        setTitle("금일 코로나 확진자");
+        covidView = (TextView)findViewById(R.id.covidView);
     }
 
     // 버튼을 클릭 했을 경우
@@ -44,7 +44,7 @@ public class covid extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tvH.setText(data);
+                                covidView.setText(data);
                                 if(data.trim().equals("")){
                                     showToast("아직 데이터가 업데이트되지 않아 \n금일 코로나 확진 정보를 갖고 오지 못했습니다.");
                                 } else {
@@ -78,6 +78,7 @@ public class covid extends AppCompatActivity {
         StringBuffer buffer=new StringBuffer();
         String query="FWh87%2FqaLEma7tme7KUMsUs6zp6rbczh1uHDI88B80cXFV29f1uSbPx5tCvgP3eH8jf1vxJ1i0vWZbPXUpGelQ%3D%3D";
         String queryUrl="http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey="+ query +"&pageNo=1&numOfRows=10&startCreateDt="+ getDay + "&endCreateDt=" + getDay;
+        // "+ getDay + "
 
         try{
             URL url= new URL(queryUrl);//문자열로 된 요청 url을 URL 객체로 생성.
