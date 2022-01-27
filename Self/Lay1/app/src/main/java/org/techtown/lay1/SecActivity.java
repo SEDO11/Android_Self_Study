@@ -1,10 +1,11 @@
 package org.techtown.lay1;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SecActivity  extends AppCompatActivity {
+public class SecActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
